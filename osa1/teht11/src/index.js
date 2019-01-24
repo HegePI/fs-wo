@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom'
 
 const Header = (props) => {
   return (
-    <p>{props.name}</p>
+    <p>{props.name.name}</p>
   )
 }
 
@@ -11,41 +11,51 @@ const Content = (props) => {
 
   return (
     <div>
-      <Part part = {props.part1} exer = {props.e1} />
-      <Part part = {props.part2} exer = {props.e2} />
-      <Part part = {props.part3} exer = {props.e3} />
+      <Part part = {props.part.parts[0]} />
+      <Part part = {props.part.parts[1]} />
+      <Part part = {props.part.parts[2]} />
     </div>
+  )
+}
+
+const Part = (props) => {
+  return(
+    <p>{props.part.name}: {props.part.exercises}</p>
   )
 }
 
 const Total = (props) => {
   return (
     <p>
-      Yhteensä {props.eka + props.toka + props.kolmas} tehtävää
+      Yhteensä {props.part.parts[0].exercises + props.part.parts[1].exercises + props.part.parts[2].exercises} tehtävää
     </p>
   )
 }
 
-const Part = (props) => {
-  return(
-    <p>{props.part}: {props.exer}</p>
-  )
-}
-
 const App = () => {
-  const course = 'Half Stack -sovelluskehitys'
-  const part1 = 'Reactin perusteet'
-  const exercises1 = 10
-  const part2 = 'Tiedonvälitys propseilla'
-  const exercises2 = 7
-  const part3 = 'Komponenttien tila'
-  const exercises3 = 14
+  const course = {
+    name: 'Half Stack -sovelluskehitys',
+    parts: [
+      {
+        name: 'Reactin perusteet',
+        exercises: 20
+      },
+      {
+        name: 'Tiedonvälitys propseilla',
+        exercises: 7
+      },
+      {
+        name: 'Komponenttien tila',
+        exercises: 14
+      }
+    ]
+  }
 
   return (
     <div>
       <Header name = {course} />
-      <Content part1 = {part1} e1 = {exercises1} part2 = {part2} e2 = {exercises2} part3 = {part3} e3 = {exercises3} />
-      <Total eka = {exercises1} toka = {exercises2} kolmas = {exercises3} />
+      <Content part = {course} />
+      <Total part = {course} />
     </div>
   )
 }
