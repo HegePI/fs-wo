@@ -1,10 +1,10 @@
 import React from 'react'
 
-const Person = ({ name, number }) => {
+const Person = ({ name, nro }) => {
 
     return (
         <div>
-            <p key={name}>{name}: {number}</p>
+            <p key={name}>{name}: {nro}</p>
         </div>
     )
 

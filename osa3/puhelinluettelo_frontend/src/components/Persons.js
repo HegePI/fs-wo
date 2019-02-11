@@ -3,7 +3,7 @@ import Person from './Person'
 
 const Persons = (persons) => {
     const data = persons.persons.map(person =>
-        <Person name={person.name} number={person.number} key={person.name} />
+        <Person name={person.name} nro={person.nro} key={person.name} />
     )
 
     return (

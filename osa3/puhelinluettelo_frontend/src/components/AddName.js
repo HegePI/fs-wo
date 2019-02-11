@@ -1,10 +1,11 @@
 import React from 'react'
 import services from '../services/persons'
 
-const AddName = ({ name, sname, number, snumber, persons, spersons, nameHandler, numberHandler }) => {
+const AddName = ({ name, sname, nro, snumber, persons, spersons, nameHandler, numberHandler }) => {
 
     const addName = (event) => {
         event.preventDefault()
+        console.log('Moi1')
 
         var listassa = false
 
@@ -12,6 +13,7 @@ const AddName = ({ name, sname, number, snumber, persons, spersons, nameHandler,
             if (name === name1.name) {
                 listassa = true;
             }
+            console.log('moi2')
         });
 
         if (listassa) {
@@ -19,6 +21,7 @@ const AddName = ({ name, sname, number, snumber, persons, spersons, nameHandler,
             sname('')
             snumber('')
         } else {
+            console.log('Moi3')
             newPerson(event)
         }
     }
@@ -27,8 +30,10 @@ const AddName = ({ name, sname, number, snumber, persons, spersons, nameHandler,
         event.preventDefault()
         const newName = {
             name: name,
-            number: number
+            nro: nro
         }
+        console.log('moi4')
+        console.log(newName)
 
         services
             .create(newName).then(returnedPerson => {
@@ -46,7 +51,7 @@ const AddName = ({ name, sname, number, snumber, persons, spersons, nameHandler,
                 <div>
                     Nimi: <input value={name} onChange={nameHandler} />
                     <p />
-                    Numero: <input value={number} onChange={numberHandler} />
+                    Numero: <input value={nro} onChange={numberHandler} />
 
                     <div>
                         <button type="submit">lisää</button>

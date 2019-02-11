@@ -11,6 +11,7 @@ const App = () => {
     const [newCondition, setNewCondition] = useState('')
 
     useEffect(() => {
+        console.log(services.getAll())
         services.getAll().then(persons => {
             setPersons(persons)
         })
@@ -41,7 +42,7 @@ const App = () => {
             <AddName
                 name={newName}
                 sname={setNewName}
-                number={newNumber}
+                nro={newNumber}
                 snumber={setNewNumber}
                 persons={persons}
                 spersons={setPersons}
