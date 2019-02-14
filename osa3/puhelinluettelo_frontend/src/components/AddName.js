@@ -5,7 +5,6 @@ const AddName = ({ name, sname, nro, snumber, persons, spersons, nameHandler, nu
 
     const addName = (event) => {
         event.preventDefault()
-        console.log('Moi1')
 
         var listassa = false
 
@@ -13,7 +12,6 @@ const AddName = ({ name, sname, nro, snumber, persons, spersons, nameHandler, nu
             if (name === name1.name) {
                 listassa = true;
             }
-            console.log('moi2')
         });
 
         if (listassa) {
@@ -21,7 +19,6 @@ const AddName = ({ name, sname, nro, snumber, persons, spersons, nameHandler, nu
             sname('')
             snumber('')
         } else {
-            console.log('Moi3')
             newPerson(event)
         }
     }
@@ -32,12 +29,18 @@ const AddName = ({ name, sname, nro, snumber, persons, spersons, nameHandler, nu
             name: name,
             nro: nro
         }
-        console.log('moi4')
-        console.log(newName)
 
         services
             .create(newName).then(returnedPerson => {
                 spersons(persons.concat(returnedPerson))
+                sname('')
+                snumber('')
+            })
+            .catch(error => {
+                console.log(error.response.data)
+                window.alert(error.response.data.error)
+                // pääset käsiksi palvelimen palauttamaan virheilmoitusolioon näin
+                //console.log(error.response.data)
                 sname('')
                 snumber('')
             })
