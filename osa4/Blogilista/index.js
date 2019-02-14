@@ -4,29 +4,7 @@ const express = require('express')
 const app = express()
 const bodyParser = require('body-parser')
 const cors = require('cors')
-const mongoose = require('mongoose')
-
-
-const blogSchema = mongoose.Schema({
-    title: String,
-    author: String,
-    url: String,
-    likes: Number
-})
-
-const Blog = mongoose.model('Blog', blogSchema)
-
-const mongoUrl = process.env.MONGODB_URI
-
-console.log('Connecting to', mongoUrl)
-
-mongoose.connect(mongoUrl, { useNewUrlParser: true })
-    .then(result => {
-        console.log('connected to MongoDB')
-    })
-    .catch((error) => {
-        console.log('error connection to MongoDB:', error.message)
-    })
+const Blog = require('./models/blog')
 
 app.use(cors())
 app.use(bodyParser.json())
@@ -40,7 +18,6 @@ app.get('/api/blogs', (request, response) => {
 })
 
 app.post('/api/blogs', (request, response) => {
-    //const blog = new Blog(request.body)
     const body = request.body
 
     const newBlog = new Blog({

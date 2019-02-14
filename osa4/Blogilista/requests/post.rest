@@ -3,8 +3,8 @@ Content-Type: application/json
 
 
 {
-    "title": "testiblog",
-    "author": "Heikki testaaja",
+    "title": "testiblog2",
+    "author": "Hegelator",
     "url": "moro moro",
-    "likes": 4
+    "likes": 45
 }
