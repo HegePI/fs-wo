@@ -13,19 +13,21 @@ const totalLikes = (blogs) => {
 }
 
 const favorite = (blogs) => {
-    const reducer = (top, index) => {
+    var index = 0;
 
-        var index = 0;
-
-        for (var i = 0; i < blogs.length; i++) {
-            if (blogs[index].likes < blogs[i].likes) {
-                index = i;
-            }
+    for (var i = 0; i < blogs.length; i++) {
+        if (blogs[index].likes < blogs[i].likes) {
+            index = i;
         }
-        const blog = blogs[index]
-        console.log(blog)
-        return blog
     }
+    const blog = blogs[index]
+    JSON.stringify(blog)
+    delete blog._id
+    delete blog.__v
+    delete blog.url
+
+    return blog
+
 }
 
 module.exports = {
