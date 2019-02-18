@@ -6,3 +6,5 @@ Content-Type: application/json
     "name": "Heikki",
     "password": "LiianHeikkoSalasana"
 }
+
+//Korjaus, mukana myös osa 4 teht 4.15
