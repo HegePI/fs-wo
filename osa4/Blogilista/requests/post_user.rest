@@ -2,9 +2,9 @@ POST http://localhost:3001/api/users
 Content-Type: application/json
 
 {
-    "username": "Hege",
-    "name": "Heikki",
-    "password": "LiianHeikkoSalasana"
+    "username": "Ege",
+    "name": "Eetu",
+    "password": "LiianHyvaSalasana"
 }
 
 //Korjaus, mukana myös osa 4 teht 4.15
