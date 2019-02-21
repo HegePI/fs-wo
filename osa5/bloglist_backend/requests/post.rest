@@ -1,0 +1,11 @@
+POST http://localhost:3001/api/blogs
+Content-Type: application/json
+
+
+{
+    "title": "testiblog3",
+    "author": "Riuttahai",
+    "url": "moro moro",
+    "likes": 45,
+    "user": "5c6af971eeeed840d6b5cead"
+}
