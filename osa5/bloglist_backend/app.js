@@ -2,7 +2,6 @@ const config = require('./utils/config')
 const express = require('express')
 const app = express()
 const bodyParser = require('body-parser')
-//const cors = require('cors')
 const Blog = require('./models/blog')
 const blogRouter = require('./controllers/blog')
 const userRouter = require('./controllers/users')
@@ -10,9 +9,7 @@ const loginRouter = require('./controllers/login')
 const middleware = require('./utils/middleware')
 const mongoose = require('mongoose')
 
-//app.use(cors())
 app.use(bodyParser.json())
-//app.use('/api/blogs', blogRouter)
 
 console.log('connecting to', config.MONGODB_URI)
 
