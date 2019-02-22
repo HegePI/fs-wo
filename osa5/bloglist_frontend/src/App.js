@@ -15,12 +15,11 @@ const App = () => {
 
   return (
     <div>
-      {user === null && Login()}
-      {user !== null && Blog()}
-
+      
       <Login />
 
       <h2>blogs</h2>
+
       {blogs.map(blog =>
         <Blog key={blog.id} blog={blog} />
       )}

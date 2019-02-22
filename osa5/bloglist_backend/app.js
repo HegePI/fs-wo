@@ -1,6 +1,7 @@
 const config = require('./utils/config')
 const express = require('express')
 const app = express()
+const cors = require('cors')
 const bodyParser = require('body-parser')
 const Blog = require('./models/blog')
 const blogRouter = require('./controllers/blog')
@@ -21,6 +22,7 @@ mongoose.connect(config.MONGODB_URI, { useNewUrlParser: true })
         console.log('Error connecting to MongoDB: ', error.message)
     })
 
+app.use(cors())
 app.use(bodyParser.json())
 app.use(middleware.requestLogger)
 

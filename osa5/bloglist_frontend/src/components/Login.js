@@ -6,7 +6,7 @@ const Login = ({ handleLogin, userName, setUsername, password, setPassword }) =>
             <div>
                 Käyttäjätunnus
                 <input
-                    type={Text}
+                    type='Text'
                     value={userName}
                     name='username'
                     onChange={({ target }) => setUsername(target.value)}
@@ -15,7 +15,7 @@ const Login = ({ handleLogin, userName, setUsername, password, setPassword }) =>
             <div>
                 Salassana
                 <input
-                    type={Text}
+                    type='Text'
                     value={password}
                     name='password'
                     onChange={({ target }) => setPassword(target.value)}
