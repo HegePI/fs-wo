@@ -4,15 +4,17 @@ const User = require('../models/user')
 const jwt = require('jsonwebtoken')
 
 const getTokenFrom = request => {
-    const authorization = request.get('authorization')
-    if (authorization && authorization.toLowerCase().startsWith('bearer')) {
-        return authorization.substring(7)
+    try {
+        const authorization = request.get('authrization')
+        console.log(authorization)
+        if (authorization && authorization.toLowerCase().startsWith('bearer')) {
+            return authorization.substring(7)
+        }
+    } catch (exception) {
+        console.log('Persiilleen män')
+        return null
     }
-    return null
 }
-
-
-
 
 blogRouter.get('/', async (request, response) => {
     const blogs = await Blog.find({}).populate('user', { username: 1, name: 1 })
@@ -20,9 +22,12 @@ blogRouter.get('/', async (request, response) => {
 })
 
 blogRouter.post('/', async (request, response, next) => {
+
     const body = request.body
+    console.log(body)
 
     const token = getTokenFrom(request)
+    console.log(token)
 
     try {
         const decodedToken = jwt.verify(token, process.env.SECRET)
@@ -40,6 +45,8 @@ blogRouter.post('/', async (request, response, next) => {
             user: user._id
 
         })
+
+        console.log(newBlog)
 
         const savedBlog = await newBlog.save()
         user.blogs = user.blogs.concat(savedBlog._id)
