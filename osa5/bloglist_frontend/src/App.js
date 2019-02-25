@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import Blog from './components/Blog'
 import Login from './components/Login'
 import Newblog from './components/new_blog_form'
+import Togglable from './components/Togglable'
 import blogService from './services/blogs'
 import loginService from './services/login'
 
@@ -10,15 +11,19 @@ const App = () => {
   const [user, setUser] = useState([])
   const [userName, setUsername] = useState([])
   const [password, setPassword] = useState([])
-  const [errorMessage, setErrorMessage] = useState(null)
   const [title, setTitle] = useState([])
   const [author, setAuthor] = useState([])
   const [url, setUrl] = useState([])
 
   useEffect(() => {
     blogService.getAll().then(blogs =>
-      setBlogs(blogs)
+      blogs.sort(function (a, b) {
+        return b.likes - a.likes
+      })
     )
+      .then(blogs => {
+        setBlogs(blogs)
+      })
   }, [])
 
   useEffect(() => {
@@ -39,23 +44,18 @@ const App = () => {
 
       window.localStorage.setItem('blogUser', JSON.stringify(user))
 
-      console.log(user)
-
       setUser(user)
       setUsername('')
       setPassword('')
 
     } catch (exception) {
-      setErrorMessage('käyttäjätunnus tai salasana virheellinen')
-      setTimeout(() => {
-        setErrorMessage(null)
-
-      }, 5000)
+      console.log('Käyttäjätunnus tai salasana virheellinen')
     }
   }
 
   const handleNewBlog = async (event) => {
     event.preventDefault()
+    blogRef.current.toggleVisibility()
     try {
       const newBlog = {
         title: title,
@@ -63,32 +63,26 @@ const App = () => {
         url: url,
         likes: 0
       }
-      console.log(newBlog)
-      const blog = await blogService.newBlog(newBlog)
-
-      console.log(blog)
+      await blogService.newBlog(newBlog)
 
       setTitle('')
       setAuthor('')
       setUrl('')
 
     } catch (exception) {
-      setErrorMessage('jokin meni pieleen')
-      setTimeout(() => {
-        setErrorMessage(null)
-      }, 5000)
+      console.log('Jokin meni pieleen')
     }
   }
-
 
   const logout = () => {
     window.localStorage.removeItem('blogUser')
   }
 
-  if (user.length === 0) {
-    return (
-      <div>
+  const blogRef = React.createRef()
 
+  const login = () => {
+    return (
+      <Togglable buttonLabel='login'>
         <Login
           handleLogin={handleLogin}
           userName={userName}
@@ -96,26 +90,30 @@ const App = () => {
           password={password}
           setPassword={setPassword}
         />
-      </div>
+      </Togglable>
     )
-  } else {
+  }
+
+  const blog = () => {
     return (
       <div>
-        <p>Logged in as {user.username}</p>
 
-        <Newblog
-          handleNewBlog={handleNewBlog}
-          title={title}
-          setTitle={setTitle}
-          author={author}
-          setAuthor={setAuthor}
-          url={url}
-          setUrl={setUrl}
-        />
-
-        <h2>blogs</h2>
-
+        <p>{user.username} logged in</p>
         <button onClick={logout}>Logout</button>
+        <h2>Blogs</h2>
+
+        <Togglable buttonLabel='new blog' ref={blogRef}>
+          <Newblog
+            handleNewBlog={handleNewBlog}
+            title={title}
+            setTitle={setTitle}
+            author={author}
+            setAuthor={setAuthor}
+            url={url}
+            setUrl={setUrl}
+          />
+        </Togglable>
+        <p />
 
         {blogs.map(blog =>
           <Blog key={blog.id} blog={blog} />
@@ -123,8 +121,15 @@ const App = () => {
       </div>
     )
   }
+
+  return (
+    <div>
+      {user.length === 0 ?
+        login() :
+        blog()
+      }
+    </div>
+  )
 }
-
-
 
 export default App

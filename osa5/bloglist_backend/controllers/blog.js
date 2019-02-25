@@ -26,6 +26,8 @@ blogRouter.post('/', async (request, response, next) => {
     const body = request.body
     console.log(body)
 
+    console.log(request.headers)
+
     const token = getTokenFrom(request)
     console.log(token)
 
@@ -57,11 +59,33 @@ blogRouter.post('/', async (request, response, next) => {
     }
 })
 
-blogRouter.delete('/:id', async (request, response, next) => {
+blogRouter.put('/:id', async (request, response, next) => {
+    const blog = request.body.blog
+
+    console.log(blog)
+    const id = blog.user.id
+    delete blog.user
+    blog.user = id
+    blog.likes = blog.likes + 1
+    console.log(blog)
+
     try {
+        await Blog.findByIdAndUpdate(request.params.id, blog, { new: true })
+        console.log('Onnistui')
+    } catch (exception) {
+        next(exception)
+
+    }
+})
+
+blogRouter.delete('/:id', async (request, response, next) => {
+
+    try {
+        console.log(`Poistetaan blogi id:llä ${request.params.id}`)
         await Blog.findByIdAndDelete(request.params.id)
         response.status(204).end
     } catch (exception) {
+        console.log(`Jokin meni pieleen`)
         next(exception)
     }
 })
