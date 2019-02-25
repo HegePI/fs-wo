@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import { useField } from './hooks/index'
 import Blog from './components/Blog'
 import Login from './components/Login'
 import Newblog from './components/new_blog_form'
@@ -9,13 +10,17 @@ import loginService from './services/login'
 const App = () => {
   const [blogs, setBlogs] = useState([])
   const [user, setUser] = useState([])
-  const [userName, setUsername] = useState([])
-  const [password, setPassword] = useState([])
+  //const [userName, setUsername] = useState([])
+  //const [password, setPassword] = useState([])
   const [title, setTitle] = useState([])
   const [author, setAuthor] = useState([])
   const [url, setUrl] = useState([])
 
+  const userName = useField('text')
+  const passWord = useField('text')
+
   useEffect(() => {
+    console.log(blogService.getAll())
     blogService.getAll().then(blogs =>
       blogs.sort(function (a, b) {
         return b.likes - a.likes
@@ -39,14 +44,16 @@ const App = () => {
   const handleLogin = async (event) => {
     event.preventDefault()
     try {
-      const username = userName
+      const username = userName.value
+      const password = passWord.value
+      userName.reset()
+      passWord.reset()
       const user = await loginService.login({ username, password })
 
       window.localStorage.setItem('blogUser', JSON.stringify(user))
 
       setUser(user)
-      setUsername('')
-      setPassword('')
+
 
     } catch (exception) {
       console.log('Käyttäjätunnus tai salasana virheellinen')
@@ -82,15 +89,11 @@ const App = () => {
 
   const login = () => {
     return (
-      <Togglable buttonLabel='login'>
-        <Login
-          handleLogin={handleLogin}
-          userName={userName}
-          setUsername={setUsername}
-          password={password}
-          setPassword={setPassword}
-        />
-      </Togglable>
+      <Login
+        handleLogin={handleLogin}
+        userName={userName}
+        password={passWord}
+      />
     )
   }
 
