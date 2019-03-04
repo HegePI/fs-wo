@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom'
 import { createStore, combineReducers } from 'redux'
 import App from './App'
 import reducer from './reducers/anecdoteReducer'
-import notifications from './reducers/anecdoteReducer'
+import notifications from './reducers/notificationReducer'
 
 const combinereducer = combineReducers({
   anecdotes: reducer,
@@ -12,12 +12,11 @@ const combinereducer = combineReducers({
 
 const store = createStore(combinereducer)
 
-console.log(store)
+console.log(store.getState())
 
 const render = () => {
   ReactDOM.render(
-    <div></div>,
-    //<App store={store} />,
+    <App store={store} />,
     document.getElementById('root')
   )
 }

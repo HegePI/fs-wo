@@ -1,16 +1,21 @@
 import React from 'react'
 import { vote } from '../reducers/anecdoteReducer'
+import { voteNotification } from '../reducers/notificationReducer'
+
 
 
 
 const AnecdoteList = ({ store }) => {
-  console.log(store)
-  const anecdotes = store.getState()
+  const anecdotes = store.getState().anecdotes
 
-  const Vote = (id) => () => {
-    console.log('vote', id)
+  const Vote = ({ anecdote }) => () => {
+    console.log('vote', anecdote.content)
     store.dispatch(
-      vote(id)
+      vote(anecdote.id)
+    )
+    console.log('Näytetään ilmoitus')
+    store.dispatch(
+      voteNotification(anecdote)
     )
   }
 
@@ -24,7 +29,7 @@ const AnecdoteList = ({ store }) => {
           </div>
           <div>
               has {anecdote.votes}
-            <button onClick={Vote(anecdote.id)}>vote</button>
+            <button onClick={Vote({ anecdote })}>vote</button>
           </div>
         </div>
       )}
