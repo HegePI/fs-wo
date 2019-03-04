@@ -55,11 +55,4 @@ export const newAnecdote = (content) => {
   }
 }
 
-export const Notification = (id) => {
-  return {
-    type: 'NOTIFICATION',
-    data: { id }
-  }
-}
-
 export default reducer

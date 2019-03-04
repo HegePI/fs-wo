@@ -1,7 +1,7 @@
 import React from 'react'
 import NewAnecdoteForm from './components/newAnecdote'
 import AnecdoteList from './components/AnecdoteList'
-import Notifications from './components/Notification'
+import Notifications from './reducers/Notification'
 
 const App = (props) => {
 

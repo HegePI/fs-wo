@@ -12,9 +12,12 @@ const combinereducer = combineReducers({
 
 const store = createStore(combinereducer)
 
+console.log(store)
+
 const render = () => {
   ReactDOM.render(
-    <App store={store} />,
+    <div></div>,
+    //<App store={store} />,
     document.getElementById('root')
   )
 }
