@@ -7,10 +7,10 @@ const Notification = ({ store }) => {
     padding: 10,
     borderWidth: 1
   }
-  console.log(store.getState())
+
   return (
     <div style={style}>
-      You voted: {store.getState().notification}
+      {store.getState().notification}
     </div>
   )
 }
