@@ -3,14 +3,14 @@ import NewAnecdoteForm from './components/newAnecdote'
 import AnecdoteList from './components/AnecdoteList'
 import Notifications from './components/Notification'
 
-const App = (props) => {
+const App = () => {
 
   return (
     <div>
-      <h2>Anecdotes</h2>
-      <Notifications store={props.store} />
-      <AnecdoteList store ={props.store}/>
-      <NewAnecdoteForm store={props.store}/>
+      <h1>Programming anecdotes</h1>
+      <Notifications />
+      <AnecdoteList />
+      <NewAnecdoteForm />
     </div>
   )
 }

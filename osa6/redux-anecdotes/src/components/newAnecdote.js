@@ -1,24 +1,22 @@
 import React from 'react'
 import { newAnecdote } from '../reducers/anecdoteReducer'
 import { newAnecNotification, reset } from '../reducers/notificationReducer'
+import { connect } from 'react-redux'
 
-const anecdoteForm = ({ store }) => {
+const anecdoteForm = (props) => {
+  /*console.log(props)
+  console.log(newAnecdote)
+  console.log(props.newAnecdote)
+  console.log(props.anecdotes)*/
 
   const NewAnecdote = (event) => {
-    console.log(store.getState())
+    const anecdote = event.target.anecdote.value
     event.preventDefault()
-    store.dispatch(
-      newAnecdote(event.target.anecdote.value, store.getState().anecdotes)
-    )
-    //console.log('Näytetään ilmoitus')
-    store.dispatch(
-      newAnecNotification(event.target.anecdote.value)
-    )
+    props.newAnecdote(anecdote, props.anecdotes)
     event.target.anecdote.value = ''
+    props.newAnecNotification(anecdote)
     setTimeout(() => {
-      store.dispatch(
-        reset()
-      )
+      props.reset()
     }, 5000)
   }
 
@@ -35,4 +33,19 @@ const anecdoteForm = ({ store }) => {
 
 }
 
-export default anecdoteForm
+const mapStateToProps  = (state) => {
+  return {
+    anecdotes: state.anecdotes,
+  }
+}
+
+const mapDispatchToProps = {
+  newAnecdote,
+  newAnecNotification,
+  reset
+
+}
+
+
+
+export default connect(mapStateToProps, mapDispatchToProps )(anecdoteForm)

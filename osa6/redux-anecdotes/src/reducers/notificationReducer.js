@@ -9,7 +9,7 @@ const notificationReducer = (state = '', action) => {
     var voteNotif = `You voted: ${action.data.anecdote.content}`
     return voteNotif
   case 'NEW':
-    //console.log(action.data.anecdote)
+    console.log(action.data.anecdote)
     var newNotif = `Created new anecdote: ${action.data.anecdote}`
     return newNotif
   case 'RESET':
