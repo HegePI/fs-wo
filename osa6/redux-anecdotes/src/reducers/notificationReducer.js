@@ -4,37 +4,33 @@ const notificationReducer = (state = '', action) => {
   console.log('action', action)
 
   switch (action.type) {
-  case 'VOTED':
-    //console.log(action.data.anecdote.content)
-    var voteNotif = `You voted: ${action.data.anecdote.content}`
-    return voteNotif
-  case 'NEW':
-    console.log(action.data.anecdote)
-    var newNotif = `Created new anecdote: ${action.data.anecdote}`
-    return newNotif
+
   case 'RESET':
     return ''
+
+
+  case 'NOTIF':
+    console.log(action.data)
+    return action.data.message
   default:
     return state
   }
 }
 
-export const voteNotification = (anecdote) => {
-  return {
-    type: 'VOTED',
-    data: { anecdote }
-  }
-}
+export const setNotification = (message, time) => {
+  console.log(time)
+  return async dispatch => {
+    dispatch({
+      type: 'NOTIF',
+      data:{ message }
+    })
+    setTimeout(() => {
+      console.log('moi2')
+      dispatch({
+        type: 'RESET'
+      })
+    }, time * 1000)
 
-export const newAnecNotification = (anecdote) => {
-  return {
-    type: 'NEW',
-    data: { anecdote }
-  }
-}
-export const reset = () => {
-  return {
-    type: 'RESET'
   }
 }
 

@@ -8,7 +8,6 @@ const Notification = (props) => {
     padding: 10,
     borderWidth: 1
   }
-  console.log(props.notification)
   return (
     <div style={style}>
       {props.notification}
@@ -23,4 +22,3 @@ const mapStateToProps  = (state) => {
 }
 
 export default connect(mapStateToProps)(Notification)
-//export default Notification
