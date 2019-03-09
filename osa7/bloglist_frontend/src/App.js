@@ -4,6 +4,7 @@ import Bloglist from './components/Bloglist'
 import Login from './components/Login'
 import Users from './components/userList'
 import User from './components/UserInfo'
+import Blog from './components/BlogInfo'
 import blogService from './services/blogs'
 import { connect } from 'react-redux'
 import { blogInit } from './reducers/blogReducer'
@@ -89,6 +90,9 @@ const App = (props) => {
   const userById = (id) =>
     props.users.find(u => u.id === id)
 
+  const blogById = (id) =>
+    props.blogs.find(b => b.id===id)
+
 
 
   return (
@@ -112,6 +116,14 @@ const App = (props) => {
               <User userInfo={userById(match.params.id)} />
             </div>
         } />
+        <Route exact path="/blogs/:id" render={({ match }) =>
+          props.user === '' ?
+            login():
+            <div>
+              <LoginInfo />
+              <Blog blogInfo={blogById(match.params.id)} />
+            </div>
+        }/>
       </div>
     </Router>
   )
@@ -127,7 +139,8 @@ const mapDispatchToProps = {
 const mapStateToProps  = (state) => {
   return {
     user: state.user,
-    users: state.users
+    users: state.users,
+    blogs: state.blogs
   }
 }
 

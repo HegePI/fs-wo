@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { Link } from 'react-router-dom'
 import { like, deleteBlog } from './../reducers/blogReducer'
 import { connect } from 'react-redux'
 
@@ -42,7 +43,9 @@ const Blog = (props) => {
             Näytä tiedot
           </button>
         </div>
-        {props.blog.title} by {props.blog.author}
+        <Link to={`/blogs/${props.blog.id}`}>
+          {props.blog.title} by {props.blog.author}
+        </Link>
       </div>
     )
   }
@@ -57,7 +60,9 @@ const Blog = (props) => {
           </button>
         </div>
         <div>
-          {props.blog.title} by {props.blog.author}
+          <Link to={`/blogs/${props.blog.id}`}>
+            {props.blog.title} by {props.blog.author}
+          </Link>
         </div>
         <div>
           {props.blog.url}
