@@ -39,10 +39,6 @@ const App = (props) => {
     }
   }
 
-  const logout = () => {
-    props.logout()
-  }
-
   const login = () => {
     return (
       <Login
@@ -53,12 +49,11 @@ const App = (props) => {
     )
   }
 
-  const blog = () => {
+  const blogs = () => {
     return (
       <div>
-
         <p>{props.user} logged in</p>
-        <button onClick={logout}>Logout</button>
+        <button onClick={() => props.logout()}>Logout</button>
         <p />
         <Bloglist />
       </div>
@@ -69,7 +64,7 @@ const App = (props) => {
     <div>
       {props.user === '' ?
         login() :
-        blog()
+        blogs()
       }
     </div>
   )
