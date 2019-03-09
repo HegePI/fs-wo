@@ -1,0 +1,38 @@
+[
+    {
+    "title": "heipä hei maailma",
+    "author": "Hegelator",
+    "url": "moro.com",
+    "likes": 8,
+    "user": {
+    "username": "Testi",
+    "name": "Hegeluthor",
+    "id": "5c710c1c6f9d251b9531eb3c"
+    },
+    "id": "5c6b11c66e5c9951439e249a"
+    },
+    {
+    "title": "heipä hei maailma",
+    "author": "Ege",
+    "url": "moro.com",
+    "likes": 5,
+    "user": {
+    "username": "Testi",
+    "name": "Hegeluthor",
+    "id": "5c710c1c6f9d251b9531eb3c"
+    },
+    "id": "5c7170b9a79af61d7a4023a8"
+    },
+    {
+    "title": "Redux basics",
+    "author": "Hegelator",
+    "url": "redux.com",
+    "likes": 9,
+    "user": {
+    "username": "Testi",
+    "name": "Hegeluthor",
+    "id": "5c710c1c6f9d251b9531eb3c"
+    },
+    "id": "5c8264fc18931a206da03dfa"
+    }
+    ]
