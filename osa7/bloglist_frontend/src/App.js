@@ -3,6 +3,7 @@ import { useField } from './hooks/index'
 import Bloglist from './components/Bloglist'
 import Login from './components/Login'
 import Users from './components/userList'
+import User from './components/UserInfo'
 import blogService from './services/blogs'
 import { connect } from 'react-redux'
 import { blogInit } from './reducers/blogReducer'
@@ -85,6 +86,11 @@ const App = (props) => {
     )
   }
 
+  const userById = (id) =>
+    props.users.find(u => u.id === id)
+
+
+
   return (
     <Router>
       <div>
@@ -93,10 +99,18 @@ const App = (props) => {
             login() :
             home()
         } />
-        <Route path="/users" render={() =>
+        <Route exact path="/users" render={() =>
           props.user === '' ?
             login() :
             users()
+        } />
+        <Route exact path="/users/:id" render={({ match }) =>
+          props.user === '' ?
+            login():
+            <div>
+              <LoginInfo />
+              <User userInfo={userById(match.params.id)} />
+            </div>
         } />
       </div>
     </Router>
