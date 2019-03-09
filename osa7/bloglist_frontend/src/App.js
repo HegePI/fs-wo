@@ -2,17 +2,27 @@ import React, { useEffect } from 'react'
 import { useField } from './hooks/index'
 import Bloglist from './components/Bloglist'
 import Login from './components/Login'
+import Users from './components/userList'
 import blogService from './services/blogs'
 import { connect } from 'react-redux'
-import { initialize } from './reducers/blogReducer'
-import { login, logout } from './reducers/userReducer'
+import { blogInit } from './reducers/blogReducer'
+import { userInit } from './reducers/userReducer'
+import { login, logout } from './reducers/loginReducer'
+import {
+  BrowserRouter as Router,
+  Route, Link, Redirect, withRouter
+} from 'react-router-dom'
 
 const App = (props) => {
   const userName = useField('text')
   const passWord = useField('text')
 
   useEffect(() => {
-    props.initialize()
+    props.blogInit()
+  }, [])
+
+  useEffect(() => {
+    props.userInit()
   }, [])
 
   useEffect(() => {
@@ -49,29 +59,53 @@ const App = (props) => {
     )
   }
 
-  const blogs = () => {
+  const LoginInfo = () => (
+    <div>
+      <p>{props.user} logged in</p>
+      <button onClick={() => props.logout()}>Logout</button>
+    </div>
+  )
+
+
+  const home = () => {
     return (
       <div>
-        <p>{props.user} logged in</p>
-        <button onClick={() => props.logout()}>Logout</button>
-        <p />
+        <LoginInfo />
         <Bloglist />
       </div>
     )
   }
 
+  const users = () => {
+    return (
+      <div>
+        <LoginInfo />
+        <Users />
+      </div>
+    )
+  }
+
   return (
-    <div>
-      {props.user === '' ?
-        login() :
-        blogs()
-      }
-    </div>
+    <Router>
+      <div>
+        <Route exact path="/" render={() =>
+          props.user === '' ?
+            login() :
+            home()
+        } />
+        <Route path="/users" render={() =>
+          props.user === '' ?
+            login() :
+            users()
+        } />
+      </div>
+    </Router>
   )
 }
 
 const mapDispatchToProps = {
-  initialize,
+  blogInit,
+  userInit,
   login,
   logout
 }
@@ -79,6 +113,7 @@ const mapDispatchToProps = {
 const mapStateToProps  = (state) => {
   return {
     user: state.user,
+    users: state.users
   }
 }
 

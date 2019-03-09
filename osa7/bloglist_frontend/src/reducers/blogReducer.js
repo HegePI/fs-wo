@@ -30,7 +30,7 @@ const reducer = (state = initialState, action) => {
     blogServices.deleteBlog(action.data.blog)
     return state
 
-  case 'INIT':
+  case 'BLOGINIT':
     return action.data
 
   default: return state
@@ -66,12 +66,12 @@ export const deleteBlog = (blog) => {
   }
 }
 
-export const initialize = () => {
+export const blogInit = () => {
   return async dispatch => {
     const blogs = await blogServices.getAll()
     console.log(blogs)
     dispatch({
-      type: 'INIT',
+      type: 'BLOGINIT',
       data: blogs
     })
   }

@@ -1,51 +1,30 @@
-import userServices from './../services/login'
+import userServices from './../services/users'
 
-var userAtstart = ''
+const usersAtStart = []
+const initialState = usersAtStart
 
-if(window.localStorage.getItem('blogUser') !== null) {
-  console.log('moi')
-  var user = JSON.parse(window.localStorage.getItem('blogUser'))
-  userAtstart = user.username
-  console.log(userAtstart)
-}
-const initialUser = userAtstart
+const reducer = (state = initialState, action) => {
+  console.log('State now: ', state)
+  console.log('Action: ', action)
 
-const reducer = (state = initialUser, action) => {
   switch(action.type) {
-
-  case 'LOGIN':
-    var credentials = window.localStorage.getItem('blogUser')
-    var info = JSON.parse(credentials)
-    if(credentials === undefined) {
-      return state
-    }
-    return info.username
-
-  case 'LOGOUT':
-    window.localStorage.removeItem('blogUser')
-    return ''
+  case 'USERINIT':
+    console.log(action.data)
+    return action.data
 
   default: return state
   }
 }
 
-export const login = (username, password) => {
+export const userInit = () => {
   return async dispatch => {
-    const user = await userServices.login({ username, password })
-    window.localStorage.setItem('blogUser', JSON.stringify(user))
+    const users = await userServices.getAll()
+    console.log(users)
     dispatch({
-      type: 'LOGIN',
-    })
-  }
-}
-
-export const logout = () => {
-  return async dispatch => {
-    dispatch({
-      type: 'LOGOUT'
+      type: 'USERINIT',
+      data: users
     })
   }
 }
 
 export default reducer
-
