@@ -1,4 +1,5 @@
 import React from 'react'
+import CommentForm from './NewComment'
 import { like } from './../reducers/blogReducer'
 import { connect } from 'react-redux'
 
@@ -20,6 +21,10 @@ const BlogInfo = (props) => {
         </div>
         <div>
           added by {blogInfo.user.name}
+        </div>
+        <div>
+          <p />
+          <CommentForm id={blogInfo.id}/>
         </div>
         <div>
           <h3>Kommentit</h3>

@@ -33,6 +33,10 @@ const reducer = (state = initialState, action) => {
   case 'BLOGINIT':
     return action.data
 
+  case 'COMMENT':
+    blogServices.newComment(action.data.id, action.data.comment)
+    return state
+
   default: return state
   }
 }
@@ -72,6 +76,20 @@ export const blogInit = () => {
     dispatch({
       type: 'BLOGINIT',
       data: blogs
+    })
+  }
+}
+
+export const addComment = ( id, comment ) => {
+  console.log(id)
+  console.log(comment)
+  return async dispatch => {
+    dispatch({
+      type: 'COMMENT',
+      data: {
+        id: id,
+        comment: comment
+      }
     })
   }
 }
