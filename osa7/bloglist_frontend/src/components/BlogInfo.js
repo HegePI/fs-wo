@@ -21,6 +21,15 @@ const BlogInfo = (props) => {
         <div>
           added by {blogInfo.user.name}
         </div>
+        <div>
+          <h3>Kommentit</h3>
+          <ul>
+            {blogInfo.comments.map(comment =>
+              <li key={blogInfo.comments.indexOf(comment)}>
+                {comment}
+              </li>)}
+          </ul>
+        </div>
       </div>
     )
   }

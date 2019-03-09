@@ -91,4 +91,17 @@ blogRouter.delete('/:id', async (request, response, next) => {
   }
 })
 
+blogRouter.post('/:id/comments', async (request, response, next) => {
+  try {
+    const blog = await Blog.findById(request.params.id)
+    const commentedBlog = { blog, comments: [...blog.comments, request.body.comment] }
+    await Blog.findByIdAndUpdate(request.params.id, commentedBlog)
+    response.status(204).end
+
+  } catch (exception) {
+    console.log('Jokin meni pieleen')
+    next(exception)
+  }
+})
+
 module.exports = blogRouter

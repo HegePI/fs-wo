@@ -12,7 +12,7 @@ import { userInit } from './reducers/userReducer'
 import { login, logout } from './reducers/loginReducer'
 import {
   BrowserRouter as Router,
-  Route, Link, Redirect, withRouter
+  Route, Link
 } from 'react-router-dom'
 
 const App = (props) => {
@@ -61,10 +61,9 @@ const App = (props) => {
     )
   }
 
-  const LoginInfo = () => (
+  const MenuBar = () => (
     <div>
-      <p>{props.user} logged in</p>
-      <button onClick={() => props.logout()}>Logout</button>
+      <Link to="/users">users</Link> <Link to="/blogs">blogs</Link> {props.user} logged in <button onClick={() => props.logout()}>Logout</button>
     </div>
   )
 
@@ -72,7 +71,7 @@ const App = (props) => {
   const home = () => {
     return (
       <div>
-        <LoginInfo />
+        <MenuBar />
         <Bloglist />
       </div>
     )
@@ -81,7 +80,7 @@ const App = (props) => {
   const users = () => {
     return (
       <div>
-        <LoginInfo />
+        <MenuBar />
         <Users />
       </div>
     )
@@ -112,15 +111,20 @@ const App = (props) => {
           props.user === '' ?
             login():
             <div>
-              <LoginInfo />
+              <MenuBar />
               <User userInfo={userById(match.params.id)} />
             </div>
         } />
+        <Route exact path="/blogs" render={() =>
+          props.user === '' ?
+            login():
+            home()
+        }/>
         <Route exact path="/blogs/:id" render={({ match }) =>
           props.user === '' ?
             login():
             <div>
-              <LoginInfo />
+              <MenuBar />
               <Blog blogInfo={blogById(match.params.id)} />
             </div>
         }/>

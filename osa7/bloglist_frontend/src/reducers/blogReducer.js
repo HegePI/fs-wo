@@ -47,7 +47,6 @@ export const like = (blog) => {
 }
 
 export const newBlog = (blog) => {
-  console.log(blog)
   return async dispatch => {
     dispatch({
       type: 'NEW_BLOG',
