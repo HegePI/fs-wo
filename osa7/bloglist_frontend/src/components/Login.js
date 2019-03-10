@@ -19,11 +19,13 @@ const Login = (props) => {
         <Form.Group>
           <Form.Label>username</Form.Label>
           <Form.Control
+            id="username"
             type="text"
             name="username" />
 
           <Form.Label>password</Form.Label>
           <Form.Control
+            id="password"
             type="text"
             name="password" />
 

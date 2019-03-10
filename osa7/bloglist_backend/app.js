@@ -3,7 +3,6 @@ const express = require('express')
 const app = express()
 const cors = require('cors')
 const bodyParser = require('body-parser')
-const Blog = require('./models/blog')
 const blogRouter = require('./controllers/blog')
 const userRouter = require('./controllers/users')
 const loginRouter = require('./controllers/login')
@@ -29,6 +28,11 @@ app.use(middleware.requestLogger)
 app.use('/api/blogs', blogRouter)
 app.use('/api/users', userRouter)
 app.use('/api/login', loginRouter)
+
+if (process.env.NODE_ENV === 'test') {
+  const testingRouter = require('./controllers/test')
+  app.use('/api/test', testingRouter)
+}
 
 app.use(middleware.unknownEndpoint)
 app.use(middleware.errorHandler)

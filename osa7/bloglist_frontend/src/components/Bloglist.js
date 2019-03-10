@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { connect } from 'react-redux'
-import { newBlog } from './../reducers/blogReducer'
+import { newBlog, blogInit } from './../reducers/blogReducer'
 import Blog from './Blog'
 import Newblog from './../components/new_blog_form'
 import Togglable from './../components/Togglable'
@@ -15,8 +15,7 @@ const BlogList = (props) => {
 
   const blogRef = React.createRef()
 
-  const handleNewBlog = async (event) => {
-    event.preventDefault()
+  const handleNewBlog = async () => {
     blogRef.current.toggleVisibility()
     const newBlog = {
       title: title,
@@ -25,11 +24,11 @@ const BlogList = (props) => {
       likes: 0
     }
     props.newBlog(newBlog)
+    props.blogInit()
 
     setTitle('')
     setAuthor('')
     setUrl('')
-
   }
 
   return (
@@ -62,7 +61,7 @@ const mapStateToProps = (state) => {
   }
 }
 const mapDispatchToProps = {
-  newBlog
+  newBlog, blogInit
 }
 const connectedBlogList = connect(
   mapStateToProps,

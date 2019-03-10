@@ -1,0 +1,18 @@
+describe('bloginfo', function() {
+  it('Shows bloginfo', function() {
+    cy.visit('http://localhost:3000')
+    cy.contains('Kirjautuminen')
+    cy.get('#username')
+      .type('Heikki')
+    cy.get('#password')
+      .type('Pulli')
+    cy.contains('login')
+      .click()
+    cy.contains('by')
+      .click()
+    cy.contains('likes')
+    cy.contains('added by')
+    cy.contains('Lisää kommentti')
+    cy.contains('Kommentit')
+  })
+})

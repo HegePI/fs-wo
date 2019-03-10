@@ -30,6 +30,7 @@ const Blog = (props) => {
       console.log(`Poistetaan blogi ${props.blog.title}`)
       props.deleteBlog(props.blog)
       window.alert(`Poistettiin blogi ${props.blog.title}`)
+
     } else {
       console.log(`Peruttiin blogin poistaminen ${props.blog.title}`)
     }

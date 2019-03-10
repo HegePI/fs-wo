@@ -19,7 +19,7 @@ describe('Api testejä', () => {
     expect('id').toBeDefined()
 
 
-    })
+  })
 
   test('Lisätään POST -pyynnöllä', async () => {
 
