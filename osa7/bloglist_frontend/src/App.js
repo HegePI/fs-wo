@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react'
-import { useField } from './hooks/index'
 import Bloglist from './components/Bloglist'
 import Login from './components/Login'
 import Users from './components/userList'
@@ -14,10 +13,9 @@ import {
   BrowserRouter as Router,
   Route, Link
 } from 'react-router-dom'
+import { Navbar, Nav } from 'react-bootstrap'
 
 const App = (props) => {
-  const userName = useField('text')
-  const passWord = useField('text')
 
   useEffect(() => {
     props.blogInit()
@@ -36,34 +34,24 @@ const App = (props) => {
     }
   }, [])
 
-  const handleLogin = async (event) => {
-    event.preventDefault()
-    try {
-      const username = userName.value
-      const password = passWord.value
-      userName.reset()
-      passWord.reset()
-      props.login(username, password)
-
-
-    } catch (exception) {
-      console.log('Käyttäjätunnus tai salasana virheellinen')
-    }
-  }
-
-  const login = () => {
-    return (
-      <Login
-        handleLogin={handleLogin}
-        userName={userName}
-        password={passWord}
-      />
-    )
-  }
-
   const MenuBar = () => (
     <div>
-      <Link to="/users">users</Link> <Link to="/blogs">blogs</Link> {props.user} logged in <button onClick={() => props.logout()}>Logout</button>
+      <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
+        <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+        <Navbar.Collapse id="responsive-navbar-nav">
+          <Nav className="mr-auto">
+            <Nav.Link href="#" as="span">
+              <Link to="/users">users</Link>
+            </Nav.Link>
+            <Nav.Link href="#" as="span">
+              <Link to="/blogs">blogs</Link>
+            </Nav.Link>
+            <Nav.Link href="#" as="span">
+              {props.user} logged in <button onClick={() => props.logout()}>Logout</button>
+            </Nav.Link>
+          </Nav>
+        </Navbar.Collapse>
+      </Navbar>
     </div>
   )
 
@@ -100,17 +88,17 @@ const App = (props) => {
         <div>
           <Route exact path="/" render={() =>
             props.user === '' ?
-              login() :
+              <Login /> :
               home()
           } />
           <Route exact path="/users" render={() =>
             props.user === '' ?
-              login() :
+              <Login /> :
               users()
           } />
           <Route exact path="/users/:id" render={({ match }) =>
             props.user === '' ?
-              login():
+              <Login />:
               <div>
                 <MenuBar />
                 <User userInfo={userById(match.params.id)} />
@@ -118,12 +106,12 @@ const App = (props) => {
           } />
           <Route exact path="/blogs" render={() =>
             props.user === '' ?
-              login():
+              <Login />:
               home()
           }/>
           <Route exact path="/blogs/:id" render={({ match }) =>
             props.user === '' ?
-              login():
+              <Login />:
               <div>
                 <MenuBar />
                 <Blog blogInfo={blogById(match.params.id)} />

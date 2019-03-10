@@ -31,7 +31,10 @@ const reducer = (state = initialUser, action) => {
 
 export const login = (username, password) => {
   return async dispatch => {
+    console.log('Moi loginista')
+    console.log(username, password)
     const user = await loginServices.login({ username, password })
+    console.log(user)
     window.localStorage.setItem('blogUser', JSON.stringify(user))
     dispatch({
       type: 'LOGIN',
