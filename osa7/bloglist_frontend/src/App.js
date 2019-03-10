@@ -95,41 +95,43 @@ const App = (props) => {
 
 
   return (
-    <Router>
-      <div>
-        <Route exact path="/" render={() =>
-          props.user === '' ?
-            login() :
-            home()
-        } />
-        <Route exact path="/users" render={() =>
-          props.user === '' ?
-            login() :
-            users()
-        } />
-        <Route exact path="/users/:id" render={({ match }) =>
-          props.user === '' ?
-            login():
-            <div>
-              <MenuBar />
-              <User userInfo={userById(match.params.id)} />
-            </div>
-        } />
-        <Route exact path="/blogs" render={() =>
-          props.user === '' ?
-            login():
-            home()
-        }/>
-        <Route exact path="/blogs/:id" render={({ match }) =>
-          props.user === '' ?
-            login():
-            <div>
-              <MenuBar />
-              <Blog blogInfo={blogById(match.params.id)} />
-            </div>
-        }/>
-      </div>
-    </Router>
+    <div className="container">
+      <Router>
+        <div>
+          <Route exact path="/" render={() =>
+            props.user === '' ?
+              login() :
+              home()
+          } />
+          <Route exact path="/users" render={() =>
+            props.user === '' ?
+              login() :
+              users()
+          } />
+          <Route exact path="/users/:id" render={({ match }) =>
+            props.user === '' ?
+              login():
+              <div>
+                <MenuBar />
+                <User userInfo={userById(match.params.id)} />
+              </div>
+          } />
+          <Route exact path="/blogs" render={() =>
+            props.user === '' ?
+              login():
+              home()
+          }/>
+          <Route exact path="/blogs/:id" render={({ match }) =>
+            props.user === '' ?
+              login():
+              <div>
+                <MenuBar />
+                <Blog blogInfo={blogById(match.params.id)} />
+              </div>
+          }/>
+        </div>
+      </Router>
+    </div>
   )
 }
 
